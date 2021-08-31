@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4dd0ac1f.chunk.css",
+    "main.js": "/static/js/main.80a9d460.chunk.js",
+    "main.js.map": "/static/js/main.80a9d460.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.5dfefed0.js",
+    "runtime-main.js.map": "/static/js/runtime-main.5dfefed0.js.map",
+    "static/js/2.a2b05650.chunk.js": "/static/js/2.a2b05650.chunk.js",
+    "static/js/2.a2b05650.chunk.js.map": "/static/js/2.a2b05650.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.4dd0ac1f.chunk.css.map": "/static/css/main.4dd0ac1f.chunk.css.map",
+    "static/js/2.a2b05650.chunk.js.LICENSE.txt": "/static/js/2.a2b05650.chunk.js.LICENSE.txt",
+    "static/media/css3-ultimate-course.55080ed3.jpg": "/static/media/css3-ultimate-course.55080ed3.jpg",
+    "static/media/html-css-bootstrap.43a554bb.jpg": "/static/media/html-css-bootstrap.43a554bb.jpg",
+    "static/media/html-in-depth.b7e998f1.jpg": "/static/media/html-in-depth.b7e998f1.jpg",
+    "static/media/me.913fc34d.jpg": "/static/media/me.913fc34d.jpg",
+    "static/media/react-for-beginners.42d1f637.jpg": "/static/media/react-for-beginners.42d1f637.jpg",
+    "static/media/web-development-bootcamp.78d7ff5c.jpg": "/static/media/web-development-bootcamp.78d7ff5c.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5dfefed0.js",
+    "static/js/2.a2b05650.chunk.js",
+    "static/css/main.4dd0ac1f.chunk.css",
+    "static/js/main.80a9d460.chunk.js"
+  ]
+}
