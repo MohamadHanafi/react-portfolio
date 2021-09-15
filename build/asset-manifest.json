@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.a7d864b8.chunk.css",
-    "main.js": "/static/js/main.9c088731.chunk.js",
-    "main.js.map": "/static/js/main.9c088731.chunk.js.map",
+    "main.css": "/static/css/main.a4d5cf92.chunk.css",
+    "main.js": "/static/js/main.54b43cfc.chunk.js",
+    "main.js.map": "/static/js/main.54b43cfc.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.5dfefed0.js",
     "runtime-main.js.map": "/static/js/runtime-main.5dfefed0.js.map",
     "static/js/2.415df72d.chunk.js": "/static/js/2.415df72d.chunk.js",
     "static/js/2.415df72d.chunk.js.map": "/static/js/2.415df72d.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.a7d864b8.chunk.css.map": "/static/css/main.a7d864b8.chunk.css.map",
+    "static/css/main.a4d5cf92.chunk.css.map": "/static/css/main.a4d5cf92.chunk.css.map",
     "static/js/2.415df72d.chunk.js.LICENSE.txt": "/static/js/2.415df72d.chunk.js.LICENSE.txt",
     "static/media/css3-ultimate-course.55080ed3.jpg": "/static/media/css3-ultimate-course.55080ed3.jpg",
     "static/media/html-css-bootstrap.43a554bb.jpg": "/static/media/html-css-bootstrap.43a554bb.jpg",
@@ -20,7 +20,7 @@
   "entrypoints": [
     "static/js/runtime-main.5dfefed0.js",
     "static/js/2.415df72d.chunk.js",
-    "static/css/main.a7d864b8.chunk.css",
-    "static/js/main.9c088731.chunk.js"
+    "static/css/main.a4d5cf92.chunk.css",
+    "static/js/main.54b43cfc.chunk.js"
   ]
 }
