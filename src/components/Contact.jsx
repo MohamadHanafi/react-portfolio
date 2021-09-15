@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [message, setMessage] = React.useState('');
@@ -73,15 +76,12 @@ const Contact = () => {
           onSubmit={handleSubmit}
         >
           <h2 className='text-white sm:text-4xl text-3xl mb-1 font-medium title-font'>
-            Hire Me
+            {t('contact.header')}
           </h2>
-          <p className='leading-relaxed mb-5'>
-            Interested in working together? We should queue up a chat. I’ll
-            offer you a coffee.
-          </p>
+          <p className='leading-relaxed mb-5'>{t('contact.paragraph')}</p>
           <div className='relative mb-4'>
             <label htmlFor='name' className='leading-7 text-sm text-gray-400'>
-              Name
+              {t('contact.label.name')}
             </label>
             <input
               type='text'
@@ -93,7 +93,7 @@ const Contact = () => {
           </div>
           <div className='relative mb-4'>
             <label htmlFor='email' className='leading-7 text-sm text-gray-400'>
-              Email
+              {t('contact.label.email')}
             </label>
             <input
               type='email'
@@ -108,7 +108,7 @@ const Contact = () => {
               htmlFor='message'
               className='leading-7 text-sm text-gray-400'
             >
-              Message
+              {t('contact.label.message')}
             </label>
             <textarea
               id='message'
@@ -121,7 +121,7 @@ const Contact = () => {
             type='submit'
             className='text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg'
           >
-            Submit
+            {t('contact.label.submit')}
           </button>
         </form>
       </div>
