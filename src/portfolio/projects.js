@@ -1,6 +1,6 @@
 export const projects = [
   {
-    _id: 5,
+    _id: 6,
     title: 'MERN ecommerce',
     subtitle: 'MERN stack',
     description:
@@ -42,5 +42,14 @@ export const projects = [
       'A nice-looking movie booking app to be interpreted at any site. Completely built and styled with plain html, css and javascript.',
     image: './movie-booking-app.gif',
     link: 'https://mohamadhanafi.github.io/movie-booking-app/',
+  },
+  {
+    _id: 5,
+    title: 'Bags Ecommerce',
+    subtitle: 'ReactJs',
+    description:
+      'A  functional Bags ecommarce  built with ReactJs and bulma library.',
+    image: './bags-ecommerce.gif',
+    link: 'https://vigilant-hermann-c23f18.netlify.app/',
   },
 ];
