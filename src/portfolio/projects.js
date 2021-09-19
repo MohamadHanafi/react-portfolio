@@ -1,5 +1,14 @@
 export const projects = [
   {
+    _id: 5,
+    title: 'MERN ecommerce',
+    subtitle: 'MERN stack',
+    description:
+      'A complete functional ecommarce that was built using MongoDB, ExpressJS, ReactJS, Redux, and NodeJS.',
+    image: './my-shop.gif',
+    link: 'https://marketplaceapp122.herokuapp.com/',
+  },
+  {
     _id: 1,
     title: 'Music Player',
     subtitle: 'Javascript',
