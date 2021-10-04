@@ -3,6 +3,7 @@ import HTMLInDepthImage from '../assets/certificates/html-in-depth.jpg';
 import css3UltimateCourseImage from '../assets/certificates/css3-ultimate-course.jpg';
 import HTMLCSSBootstrapImage from '../assets/certificates/html-css-bootstrap.jpg';
 import reactForBeginnersImage from '../assets/certificates/react-for-beginners.jpg';
+import nodejsApiMasterclass from '../assets/certificates/Node-masterclass.jpg';
 
 export const certificates = [
   {
@@ -47,5 +48,13 @@ export const certificates = [
     description: 'The very basics of React.js for absolute beginners',
     image: reactForBeginnersImage,
     link: 'https://www.udemy.com/certificate/UC-4a3e640a-fd16-4c92-9270-48fd3b6d4df0/',
+  },
+  {
+    _id: 6,
+    title: 'Node.js API Masterclass With Express & MongoDB',
+    description:
+      'This is a project based course where we build an extensive, in-depth backend API for DevCamper, a bootcamp directory app. We will start from scratch and end up with a professional deployed API with documentation.',
+    image: nodejsApiMasterclass,
+    link: 'https://www.udemy.com/certificate/UC-9703844e-8687-41bf-937a-39c51d03a470/',
   },
 ];
