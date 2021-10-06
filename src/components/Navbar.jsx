@@ -31,8 +31,14 @@ const Navbar = () => {
           <a href='#certificates' className='mr-5 hover:text-white'>
             {t('nav.certificates')}
           </a>
+          <button className='inline-flex text-white bg-green-500 border-0 px-3 py-1.5 focus:outline-none hover:bg-green-600 rounded font-bold'>
+            <a href='/MohamadHanafiCV.pdf' download>
+              {' '}
+              DOWNLOAD MY CV{' '}
+            </a>
+          </button>
         </nav>
-        <div>
+        <div className='my-1'>
           {Object.keys(lngs).map((lng) => (
             <button
               key={lng}
