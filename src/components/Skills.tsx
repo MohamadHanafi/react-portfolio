@@ -1,6 +1,5 @@
 import { BadgeCheckIcon, ChipIcon } from '@heroicons/react/solid';
-import React from 'react';
-import { skills } from '../portfolio/skills';
+import { skills } from '../portfolio/skills.ts';
 import { useTranslation } from 'react-i18next';
 
 const Skills = () => {

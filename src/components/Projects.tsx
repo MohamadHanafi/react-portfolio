@@ -1,6 +1,5 @@
-import React from 'react';
 import { CodeIcon } from '@heroicons/react/solid';
-import { projects } from '../portfolio/projects';
+import { projects } from '../portfolio/projects.ts';
 import { useTranslation } from 'react-i18next';
 
 const Projects = () => {
@@ -23,11 +22,9 @@ const Projects = () => {
             .sort((a, b) => b._id - a._id)
             .map((project) => (
               <a
-                target='_blank'
                 href={project.link}
                 key={project.image}
                 className='sm:w-1/2 w-100 p-4'
-                rel='noreferrer'
               >
                 <div className='flex relative'>
                   <img

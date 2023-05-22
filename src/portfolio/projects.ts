@@ -1,4 +1,11 @@
-export const projects = [
+export const projects : {
+  _id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  link: string;
+}[] = [
   {
     _id: 6,
     title: 'MERN ecommerce',
@@ -43,13 +50,13 @@ export const projects = [
     image: './movie-booking-app.gif',
     link: 'https://mohamadhanafi.github.io/movie-booking-app/',
   },
-  {
-    _id: 5,
-    title: 'Bags Ecommerce',
-    subtitle: 'ReactJs',
-    description:
-      'A  functional Bags ecommarce  built with ReactJs and bulma library.',
-    image: './bags-ecommerce.gif',
-    link: 'https://vigilant-hermann-c23f18.netlify.app/',
-  },
+  // {
+  //   _id: 5,
+  //   title: 'Bags Ecommerce',
+  //   subtitle: 'ReactJs',
+  //   description:
+  //     'A  functional Bags ecommarce  built with ReactJs and bulma library.',
+  //   image: './bags-ecommerce.gif',
+  //   link: 'https://vigilant-hermann-c23f18.netlify.app/',
+  // },
 ];

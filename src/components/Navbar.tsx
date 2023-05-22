@@ -1,9 +1,37 @@
-import React from 'react';
 import { ArrowRightIcon } from '@heroicons/react/solid';
+import {  useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { debounce } from '../helperes/debounce';
 
 const Navbar = () => {
-  const lngs = {
+  type Languages = {
+    [key: string]: { nativeName: string };
+  }
+
+  const [show, setShow] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+ 
+
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      console.log("scrolling...")
+      const currentScrollPos = window.pageYOffset;
+      console.log("currentScrollPos", currentScrollPos)
+      console.log("prevScrollPosition", prevScrollPos)
+      if (Math.abs(currentScrollPos - prevScrollPos) < 3) return
+      setShow(
+        (prevScrollPos > currentScrollPos &&
+          prevScrollPos - currentScrollPos > 70) ||
+          currentScrollPos < 10
+      );
+      setPrevScrollPos(currentScrollPos);
+    }, 50)
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos, show])
+
+  const lngs : Languages = {
     en: { nativeName: 'En' },
     ar: { nativeName: 'Ar' },
   };
@@ -11,7 +39,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
 
   return (
-    <header className='bg-gray-800 md:sticky top-0 z-10'>
+    <header className={`bg-gray-800 md:sticky top-0 z-10 ${show ? 'opacity-100' : 'opacity-0'} transition-all`}>
       <div className='container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center'>
         <a
           href='#about'
