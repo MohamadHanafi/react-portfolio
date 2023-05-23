@@ -40,7 +40,7 @@ const Navbar = () => {
         show ? "opacity-100" : "opacity-0"
       } transition-all`}
     >
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
         <a
           href="#about"
           className="title-font font-medium text-white mb-4 md:mb-0"

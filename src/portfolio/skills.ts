@@ -1,10 +1,12 @@
 export const skills = [
   "JavaScript",
-  "Python",
-  "C/C++",
+  "TypeScript",
   "React",
   "Next.js",
   "Node",
   "MongoDB",
   "SQL",
+  "Tailwind CSS",
+  "C/C++",
+  "Python",
 ];

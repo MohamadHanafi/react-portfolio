@@ -13,7 +13,7 @@ import {
   ButtonNext,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { useCallback, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { debounce } from "../helperes/debounce.ts";
 
 const Projects = () => {
@@ -40,17 +40,16 @@ const Projects = () => {
           }
           acc[acc.length - 1].push(curr);
 
-          if (
-            i === projects.length - 1 &&
-            acc[acc.length - 1].length < getDivider()
-          ) {
-            acc[acc.length - 1].unshift(
-              ...acc[acc.length - 2].slice(
-                -(getDivider() - acc[acc.length - 1].length)
-              )
-            );
-          }
-          console.log(acc);
+          // if (
+          //   i === projects.length - 1 &&
+          //   acc[acc.length - 1].length < getDivider()
+          // ) {
+          //   acc[acc.length - 1].unshift(
+          //     ...acc[acc.length - 2].slice(
+          //       -(getDivider() - acc[acc.length - 1].length)
+          //     )
+          //   );
+          // }
           return acc;
         }, [])
     );
@@ -101,7 +100,7 @@ const Projects = () => {
                       href={project.link}
                       key={project.image}
                       style={{ height: "230px" }}
-                      className="sm:w-1/2 p-4 flex-grow"
+                      className="sm:w-1/2 p-4"
                     >
                       <div className="flex relative">
                         <img
@@ -134,7 +133,10 @@ const Projects = () => {
             </Slider>
             {currentSlide < projectsArrays.length && (
               <ButtonNext
-                onClick={() => {
+                onClick={(
+                  ev: SyntheticEvent<HTMLButtonElement, Event> | undefined
+                ) => {
+                  ev?.preventDefault();
                   setCurrentSlide(currentSlide + 1);
                 }}
               >
