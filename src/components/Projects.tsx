@@ -27,7 +27,6 @@ const Projects = () => {
   useEffect(() => {
     const handleResize = debounce(() => setScreenWidth(window.innerWidth), 50);
     window.addEventListener("resize", handleResize);
-    console.log(screenWidth);
 
     // if the screen width is less than the break point, set the number of slides to 2 otherwise 4
     setProjectsArrays(
