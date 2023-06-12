@@ -4,4 +4,5 @@ export interface MessageInterface {
   createdAt: Date;
   state: "pending" | "sent" | "received" | "read";
   sender: "user" | "admin";
+  type: "text" | "audio";
 }

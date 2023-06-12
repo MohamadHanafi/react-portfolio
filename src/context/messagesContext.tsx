@@ -18,6 +18,8 @@ type MessagesContextType = {
   setMessages: Dispatch<SetStateAction<MessageInterface[]>>;
   typedMessage: string;
   setTypedMessage: Dispatch<SetStateAction<string>>;
+  audioFile: HTMLAudioElement | null;
+  setAudioFile: Dispatch<SetStateAction<HTMLAudioElement | null>>;
 };
 
 export const MessagesContext = createContext<MessagesContextType>({
@@ -25,12 +27,15 @@ export const MessagesContext = createContext<MessagesContextType>({
   setMessages: () => {},
   typedMessage: "",
   setTypedMessage: () => {},
+  audioFile: null,
+  setAudioFile: () => {},
 });
 
 const MessagesContextProvider = ({ children }: Props) => {
   // todo: the messages will be coming from the server
   const [messages, setMessages] = useState<MessageInterface[]>(mockMessages);
   const [typedMessage, setTypedMessage] = useState("");
+  const [audioFile, setAudioFile] = useState<HTMLAudioElement | null>(null);
 
   // this is a mock function to add a message to the chat
   useEffect(() => {
@@ -43,6 +48,7 @@ const MessagesContextProvider = ({ children }: Props) => {
           sender: "admin",
           id: Math.floor(Math.random() * 1000),
           state: "received",
+          type: "text",
         },
       ]);
     }, 100000);
@@ -59,7 +65,14 @@ const MessagesContextProvider = ({ children }: Props) => {
 
   return (
     <MessagesContext.Provider
-      value={{ messages, setMessages, typedMessage, setTypedMessage }}
+      value={{
+        messages,
+        setMessages,
+        typedMessage,
+        setTypedMessage,
+        audioFile,
+        setAudioFile,
+      }}
     >
       {children}
     </MessagesContext.Provider>

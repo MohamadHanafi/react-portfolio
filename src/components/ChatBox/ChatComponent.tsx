@@ -58,7 +58,7 @@ const ChatComponent = ({ messages, state }: Props) => {
         backgroundSize: "cover",
         boxShadow: "0px 0px 12px 0px rgba(22, 101, 52, 1)",
       }}
-      className="h-72 w-60 rounded-md p-2 flex flex-col"
+      className="h-72 w-60 rounded-md p-2 flex flex-col items-center"
     >
       <ChatInterface messages={messages} />
       <ChatInputInterface ref={ref} />

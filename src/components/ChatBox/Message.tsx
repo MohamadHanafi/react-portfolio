@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MessageInterface } from "./interface";
-import moment from "moment";
+import AudioPlayer from "./AudioPlayer";
 
 interface Props {
   message: MessageInterface;
@@ -8,38 +8,32 @@ interface Props {
   trianglePosition?: "left" | "right";
 }
 
-/**
- * will render the message component
- * if the message is sent by the user, it will be rendered on the right side
- *
- * if the message is sent by the admin, it will be rendered on the left side
- *
- * if the message is pending, it will be rendered with an opacity of 0.5
- *
- * if the message is sent by the user, and the state is sent a gray tick will be rendered
- *
- * if the message is sent by the user, and the state is received a double gray tick will be rendered
- *
- * if the message is sent by the user, and the state is read a double blue tick will be rendered
- *
- * if the message is the first message of the user or the admin, a triangle will be rendered
- *
- * @param {Props} { message: { message, createdAt, state, sender } }
- * @returns
- */
 const Message = ({
-  message: { sender, message, createdAt, state },
+  message: { sender, message, createdAt, state, type },
   showTriangle = false,
   trianglePosition,
 }: Props) => {
+  const [file, setFile] = useState<HTMLAudioElement | null>(null);
+  useEffect(() => {
+    if (type !== "audio") return;
+
+    const convertSrcToAudioFile = (src: string) => {
+      const audioFile = new Audio(src);
+      return audioFile;
+    };
+
+    const audioFile = convertSrcToAudioFile(message);
+    setFile(audioFile);
+  }, [message, type]);
+
   return (
     <div
       style={{
-        maxWidth: "90%",
+        maxWidth: `${type === "text" ? "90%" : "70%"}`,
       }}
       className={`text-xs py-1 px-2.5 rounded-md relative ${senderToClass[sender]}`}
     >
-      {message}
+      {type === "text" ? message : file && <AudioPlayer audioFile={file} />}
       {showTriangle && trianglePosition && (
         <Triangle position={trianglePosition} />
       )}

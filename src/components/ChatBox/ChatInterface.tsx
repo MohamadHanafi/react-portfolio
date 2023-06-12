@@ -50,7 +50,7 @@ const ChatInterface = ({ messages }: Props) => {
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}
-      className="h-full flex flex-col w-full gap-2 "
+      className="h-full flex flex-col gap-2"
     >
       {Object.keys(messagesByDate).map((date) => {
         return (

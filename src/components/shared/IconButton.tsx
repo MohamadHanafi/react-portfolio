@@ -1,17 +1,25 @@
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;
   color?: "primary" | "secondary";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
+  hidden?: boolean;
+  rotate?: string;
 }
 
 const IconButton = ({
   icon,
   color = "primary",
   size = "sm",
+  hidden = false,
   ...props
 }: Props) => {
+  if (hidden) {
+    return null;
+  }
   return (
     <button
+      style={{ transform: `rotate(${props.rotate})` }}
+      type="button"
       className={`rounded-full p-2 flex items-center justify-items-center ${mapColorToClass(
         color
       )} ${mapSizeToClass(size)}`}
@@ -35,6 +43,8 @@ const mapColorToClass = (color: Props["color"]) => {
 
 const mapSizeToClass = (size: Props["size"]) => {
   switch (size) {
+    case "xs":
+      return "w-6 h-6";
     case "sm":
       return "w-8 h-8";
     case "md":

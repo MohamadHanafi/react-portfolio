@@ -1,59 +1,115 @@
-import { ForwardedRef, forwardRef, useContext, useMemo } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import IconButton from "../shared/IconButton";
 import ChatInput from "./ChatInput";
-import { MicrophoneIcon, PhoneIcon } from "@heroicons/react/solid";
+import {
+  MicrophoneIcon,
+  PhoneIcon,
+  ChatIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/solid";
 import { MessagesContext } from "../../context/messagesContext";
 import { MessageInterface } from "./interface";
-
-interface Props {}
+import { InputType } from "./type/input.type";
 
 const ChatInputInterface = forwardRef(
-  ({}: Props, ref: ForwardedRef<HTMLInputElement>) => {
-    const { typedMessage, setTypedMessage, messages, setMessages } =
-      useContext(MessagesContext);
+  (_props, ref: ForwardedRef<HTMLInputElement>) => {
+    const {
+      typedMessage,
+      setTypedMessage,
+      messages,
+      setMessages,
+      audioFile,
+      setAudioFile,
+    } = useContext(MessagesContext);
+    const [inputType, setInputType] = useState<InputType>("text");
 
     const handleSubmit = useMemo(() => {
-      return (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!typedMessage) return;
+      return (e?: React.FormEvent<HTMLFormElement>) => {
+        e && e.preventDefault();
+        if (inputType === "text" && !typedMessage) return;
+        if (inputType === "voice" && !audioFile) return;
         // 1. get the messages from the context
         // 2. add the new message to the messages
         const newMessage: MessageInterface = {
           id: messages.length + 1,
           createdAt: new Date(),
-          message: typedMessage,
+          message: inputType === "text" ? typedMessage : audioFile!.src,
           sender: "user",
           state: "received",
+          type: inputType === "text" ? "text" : "audio",
         };
         // 3. set the messages in the context
         setMessages((prev: MessageInterface[]) => [...prev, newMessage]);
         // 4. clear the input
         // @ts-expect-error
-        ref.current.value = "";
+        if (ref && ref.current) {
+          // @ts-expect-error
+          ref.current.value = "";
+        }
         setTypedMessage("");
+        setAudioFile(null);
       };
-    }, [typedMessage]);
+    }, [
+      typedMessage,
+      audioFile,
+      inputType,
+      messages.length,
+      ref,
+      setAudioFile,
+      setMessages,
+      setTypedMessage,
+    ]);
+
+    useEffect(() => {
+      if (inputType === "text") {
+        // @ts-expect-error
+        ref.current?.focus();
+      }
+    }, [inputType, ref]);
 
     return (
       <form
-        className="flex items-center justify-center w-full gap-1"
+        className="flex justify-between gap-1 w-full"
         onSubmit={handleSubmit}
       >
         <ChatInput
-          customClass="w-3/4"
           ref={ref}
           defaultValue={typedMessage}
           onChange={(e) => setTypedMessage(e.currentTarget.value)}
+          inputType={inputType}
         />
         <IconButton
           onClick={() => {
-            // TODO: implement voice recording
+            setInputType((prev) => (prev === "text" ? "voice" : "text"));
           }}
-          icon={<MicrophoneIcon className="w-4 h-4" />}
+          icon={
+            inputType === "text" ? (
+              <MicrophoneIcon className="w-4 h-4" />
+            ) : (
+              <ChatIcon className="w-4 h-4" />
+            )
+          }
         />
         <IconButton
+          hidden={inputType === "voice" || !!typedMessage}
           onClick={() => {}}
           icon={<PhoneIcon className="w-4 h-4" />}
+        />
+        <IconButton
+          hidden={
+            (inputType === "text" && !typedMessage) ||
+            (inputType === "voice" && !audioFile)
+          }
+          onClick={() => handleSubmit()}
+          rotate="90deg"
+          icon={<PaperAirplaneIcon className="w-4 h-4" />}
         />
       </form>
     );

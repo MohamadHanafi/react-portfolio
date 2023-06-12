@@ -6,6 +6,7 @@ export const mockMessages: MessageInterface[] = [
     createdAt: new Date(),
     state: "sent",
     sender: "admin",
+    type: "text",
   },
   {
     id: 2,
@@ -13,6 +14,7 @@ export const mockMessages: MessageInterface[] = [
     createdAt: new Date(),
     state: "sent",
     sender: "admin",
+    type: "text",
   },
   {
     id: 3,
@@ -20,6 +22,7 @@ export const mockMessages: MessageInterface[] = [
     createdAt: new Date(),
     state: "read",
     sender: "user",
+    type: "text",
   },
   {
     id: 4,
@@ -27,12 +30,14 @@ export const mockMessages: MessageInterface[] = [
     createdAt: new Date(),
     state: "received",
     sender: "user",
+    type: "text",
   },
   {
     id: 5,
     message: "Can you please tell me more about your products?",
     createdAt: new Date(),
     state: "sent",
+    type: "text",
     sender: "user",
   },
 ];
