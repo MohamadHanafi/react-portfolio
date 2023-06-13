@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { MessageInterface } from "./interface";
+import { MessageInterface } from "../../interface";
 import moment from "moment";
 import DateTag from "./DateTag";
 import Message from "./Message";
@@ -17,7 +17,7 @@ const ChatInterface = ({ messages }: Props) => {
 
   // divide the messages into arrays according to the createdAt date
   useEffect(() => {
-    const messagesByDate = messages.reduce(
+    const messagesByDate = messages?.reduce(
       (acc: Record<string, MessageInterface[]>, message: MessageInterface) => {
         const date = moment(message.createdAt).format("DD/MM/YYYY");
         if (!acc[date]) {
@@ -50,28 +50,29 @@ const ChatInterface = ({ messages }: Props) => {
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}
-      className="h-full flex flex-col gap-2"
+      className="h-full flex flex-col gap-1.5 w-full"
     >
-      {Object.keys(messagesByDate).map((date) => {
-        return (
-          <Fragment key={date}>
-            <DateTag date={date} />
-            {messagesByDate[date].map((message, idx) => {
-              const trianglePosition =
-                message.sender === "admin" ? "left" : "right";
-              const prevMessage = messagesByDate[date][idx - 1];
-              return (
-                <Message
-                  key={idx}
-                  message={message}
-                  showTriangle={!(prevMessage?.sender === message.sender)}
-                  trianglePosition={trianglePosition}
-                />
-              );
-            })}
-          </Fragment>
-        );
-      })}
+      {messagesByDate &&
+        Object.keys(messagesByDate).map((date) => {
+          return (
+            <Fragment key={date}>
+              <DateTag date={date} />
+              {messagesByDate[date].map((message, idx) => {
+                const trianglePosition =
+                  message.sender === "admin" ? "left" : "right";
+                const prevMessage = messagesByDate[date][idx - 1];
+                return (
+                  <Message
+                    key={idx}
+                    message={message}
+                    showTriangle={!(prevMessage?.sender === message.sender)}
+                    trianglePosition={trianglePosition}
+                  />
+                );
+              })}
+            </Fragment>
+          );
+        })}
     </div>
   );
 };

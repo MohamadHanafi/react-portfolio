@@ -1,7 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ChatButton from "./ChatButton";
 import { MessagesContext } from "../../context/messagesContext";
 import ChatComponent from "./ChatComponent";
+import { useSocket } from "../../hooks/useSocket";
+
+import { v4 as uuid } from "uuid";
 
 const ChatBox = () => {
   // the chat toast is to be added dynamically
@@ -9,8 +12,39 @@ const ChatBox = () => {
   const [chatComponentState, setChatComponentState] = useState<
     "open" | "close"
   >("close");
+  const [userId, setUserId] = useState<string>(
+    localStorage.getItem("id") || ""
+  );
 
-  const { messages } = useContext(MessagesContext);
+  const { messages, getAllMessages, setMessages } = useContext(MessagesContext);
+
+  const { connectSocket, removeListener, isConnected } = useSocket(
+    process.env.REACT_APP_SOCKET_URL!
+  );
+
+  useEffect(() => {
+    if (!userId) {
+      let id = uuid();
+      localStorage.setItem("id", id);
+      setUserId(id);
+    }
+
+    if (!isConnected && userId) {
+      connectSocket(userId);
+    }
+
+    return () => {
+      removeListener("chat");
+    };
+  }, [isConnected, userId]);
+
+  useEffect(() => {
+    if (userId) {
+      getAllMessages(userId).then((response) => setMessages(response));
+    }
+  }, [userId]);
+
+  useEffect(() => {}, [messages]);
 
   return (
     <div

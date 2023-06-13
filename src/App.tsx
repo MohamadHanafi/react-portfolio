@@ -5,18 +5,21 @@ import Skills from "./components/Skills.tsx";
 import Contact from "./components/Contact.tsx";
 import ChatBox from "./components/ChatBox";
 import MessagesContextProvider from "./context/messagesContext.tsx";
+import SocketContextProvider from "./context/socketContext.tsx";
 
 const App = () => {
   return (
     <div className="text-gray-400 bg-gray-900 body-font">
-      <MessagesContextProvider>
-        <ChatBox />
-      </MessagesContextProvider>
-      <Navbar />
-      <About />
-      <Projects />
-      <Skills />
-      <Contact />
+      <SocketContextProvider>
+        <MessagesContextProvider>
+          <ChatBox />
+        </MessagesContextProvider>
+        <Navbar />
+        <About />
+        <Projects />
+        <Skills />
+        <Contact />
+      </SocketContextProvider>
     </div>
   );
 };

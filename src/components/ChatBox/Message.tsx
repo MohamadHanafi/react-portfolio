@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { MessageInterface } from "./interface";
+import { MessageInterface } from "../../interface";
 import AudioPlayer from "./AudioPlayer";
+import { ExclamationCircleIcon } from "@heroicons/react/solid";
 
 interface Props {
   message: MessageInterface;
@@ -31,8 +32,15 @@ const Message = ({
       style={{
         maxWidth: `${type === "text" ? "90%" : "70%"}`,
       }}
-      className={`text-xs py-1 px-2.5 rounded-md relative ${senderToClass[sender]}`}
+      className={`text-xs py-1 px-2.5 rounded-md relative ${
+        senderToClass[sender]
+      } ${state === "pending" ? "opacity-50" : ""}
+      `}
     >
+      {state === "failed" && (
+        // only the messages send from the user can be failed
+        <ExclamationCircleIcon className="w-4 h-4 text-red-500 absolute -left-5" />
+      )}
       {type === "text" ? message : file && <AudioPlayer audioFile={file} />}
       {showTriangle && trianglePosition && (
         <Triangle position={trianglePosition} />

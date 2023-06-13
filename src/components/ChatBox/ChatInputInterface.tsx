@@ -15,39 +15,69 @@ import {
   PaperAirplaneIcon,
 } from "@heroicons/react/solid";
 import { MessagesContext } from "../../context/messagesContext";
-import { MessageInterface } from "./interface";
+import { MessageInterface } from "../../interface";
 import { InputType } from "./type/input.type";
+import { v4 as uuid } from "uuid";
 
 const ChatInputInterface = forwardRef(
   (_props, ref: ForwardedRef<HTMLInputElement>) => {
     const {
       typedMessage,
       setTypedMessage,
-      messages,
       setMessages,
       audioFile,
       setAudioFile,
+      sendMessage,
     } = useContext(MessagesContext);
     const [inputType, setInputType] = useState<InputType>("text");
 
     const handleSubmit = useMemo(() => {
-      return (e?: React.FormEvent<HTMLFormElement>) => {
+      return async (e?: React.FormEvent<HTMLFormElement>) => {
         e && e.preventDefault();
         if (inputType === "text" && !typedMessage) return;
         if (inputType === "voice" && !audioFile) return;
         // 1. get the messages from the context
         // 2. add the new message to the messages
+        const _id = uuid();
         const newMessage: MessageInterface = {
-          id: messages.length + 1,
-          createdAt: new Date(),
+          _id,
           message: inputType === "text" ? typedMessage : audioFile!.src,
           sender: "user",
-          state: "received",
+          state: "pending",
           type: inputType === "text" ? "text" : "audio",
+          userId: localStorage.getItem("id")!,
         };
         // 3. set the messages in the context
         setMessages((prev: MessageInterface[]) => [...prev, newMessage]);
-        // 4. clear the input
+
+        // 4. send the message to the server
+        const res = await sendMessage(newMessage);
+        if (res) {
+          setMessages((prev: MessageInterface[]) =>
+            prev.map((message) => {
+              if (message._id === _id) {
+                return {
+                  ...message,
+                  state: "received",
+                };
+              }
+              return message;
+            })
+          );
+        } else {
+          setMessages((prev: MessageInterface[]) =>
+            prev.map((message) => {
+              if (message._id === _id) {
+                return {
+                  ...message,
+                  state: "failed",
+                };
+              }
+              return message;
+            })
+          );
+        }
+        // 5. clear the input
         // @ts-expect-error
         if (ref && ref.current) {
           // @ts-expect-error
@@ -60,7 +90,6 @@ const ChatInputInterface = forwardRef(
       typedMessage,
       audioFile,
       inputType,
-      messages.length,
       ref,
       setAudioFile,
       setMessages,

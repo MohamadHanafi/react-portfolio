@@ -1,8 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import chatBG from "../../assets/7331541.jpg";
 import ChatInputInterface from "./ChatInputInterface";
 import ChatInterface from "./ChatInterface";
-import { MessageInterface } from "./interface";
+import { useSocket } from "../../hooks/useSocket";
+import { MessagesContext } from "../../context/messagesContext";
+import { MessageInterface, socketChatEnum } from "../../interface";
+import { SocketChannelsEnum } from "../../interface";
 
 interface Props {
   messages: MessageInterface[];
@@ -11,23 +14,50 @@ interface Props {
 
 const ChatComponent = ({ messages, state }: Props) => {
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string>("");
   const ref = useRef<HTMLInputElement>(null);
+
+  const { addListener, isConnected, removeListener } = useSocket(
+    process.env.REACT_APP_SOCKET_URL!
+  );
+
+  const { setMessages } = useContext(MessagesContext);
+
+  useEffect(() => {
+    if (isConnected) {
+      addListener({
+        channelName: SocketChannelsEnum.CHAT,
+        callBack: (data) => {
+          if (data?.event === socketChatEnum.NEW_MESSAGE) {
+            setToastMessage((data?.payload as MessageInterface).message);
+            setMessages((prev) => [
+              ...prev,
+              {
+                message: data?.payload.message,
+                sender: "admin",
+                createdAt: new Date(),
+                state: "received",
+                type: "text",
+              },
+            ]);
+            setShowToast(true);
+            setTimeout(() => {
+              setShowToast(false);
+            }, 2000);
+          }
+        },
+      });
+    }
+    return () => {
+      removeListener("chat");
+    };
+  }, [isConnected]);
 
   useEffect(() => {
     if (state === "open") {
       ref.current?.focus();
     }
   }, [state, ref]);
-
-  useEffect(() => {
-    if (messages.length) {
-      setShowToast(true);
-      const timeout = setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-      return () => clearTimeout(timeout);
-    }
-  }, [messages]);
 
   // if the state is close, it will render a small toast component
   if (state === "close") {
@@ -43,7 +73,7 @@ const ChatComponent = ({ messages, state }: Props) => {
             className="overflow-hidden"
             style={{ textOverflow: "ellipsis", whiteSpace: "nowrap" }}
           >
-            {messages[messages.length - 1].message}
+            {toastMessage}
           </p>
         </div>
       );
