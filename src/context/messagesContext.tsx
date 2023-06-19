@@ -92,7 +92,7 @@ export interface getAllMessagesResponse {
 
 async function getAllMessages(userId: string): Promise<MessageInterface[]> {
   const response = await axios.get<getAllMessagesResponse>(
-    `${process.env.REACT_APP_SERVER_URL}/messages/${userId}`
+    `${process.env.REACT_APP_SERVER_URL}/messages/${userId}?order=createdAt=asc`
   );
   const { data } = response;
   return data.messages;

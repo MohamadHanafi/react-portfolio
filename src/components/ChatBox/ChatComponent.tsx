@@ -28,6 +28,7 @@ const ChatComponent = ({ messages, state }: Props) => {
       addListener({
         channelName: SocketChannelsEnum.CHAT,
         callBack: (data) => {
+          console.log(data);
           if (data?.event === socketChatEnum.NEW_MESSAGE) {
             setToastMessage((data?.payload as MessageInterface).message);
             setMessages((prev) => [
