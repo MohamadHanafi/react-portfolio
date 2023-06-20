@@ -27,7 +27,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "craco start",
-    "build": "npm install && craco build",
+    "build": "npm install -g yarn && yarn add socket.io-client && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
