@@ -21,13 +21,14 @@
     "react-i18next": "^11.11.4",
     "react-scripts": "^4.0.3",
     "typescript": "^5.0.4",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "socket.io-client": "^4.4.0"
   },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "craco start",
-    "build": "craco build",
+    "build": "yarn && yarn add socket.io-client && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
