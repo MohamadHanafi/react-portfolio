@@ -18,8 +18,7 @@ const ChatComponent = ({ messages, state }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
 
   const { addListener, isConnected, removeListener } = useSocket(
-    process.env.REACT_APP_SOCKET_URL ||
-      "https://express-portfolio9-0a28ad87d535.herokuapp.com"
+    "https://express-portfolio9-0a28ad87d535.herokuapp.com"
   );
 
   const { setMessages } = useContext(MessagesContext);
