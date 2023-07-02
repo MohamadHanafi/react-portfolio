@@ -1,6 +1,6 @@
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;
-  color?: "primary" | "secondary";
+  color?: "primary" | "secondary" | "danger";
   size?: "xs" | "sm" | "md" | "lg";
   hidden?: boolean;
   rotate?: string;
@@ -36,6 +36,8 @@ const mapColorToClass = (color: Props["color"]) => {
       return "bg-green-500 hover:bg-green-600 text-white";
     case "secondary":
       return "bg-gray-500 hover:bg-gray-600 text-white";
+    case "danger":
+      return "bg-red-500 hover:bg-red-600 text-white";
     default:
       return "";
   }

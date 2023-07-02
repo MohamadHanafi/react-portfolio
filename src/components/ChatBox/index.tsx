@@ -19,7 +19,8 @@ const ChatBox = () => {
   const { messages, getAllMessages, setMessages } = useContext(MessagesContext);
 
   const { connectSocket, removeListener, isConnected } = useSocket(
-    "https://express-portfolio9-0a28ad87d535.herokuapp.com"
+    process.env.REACT_APP_SOCKET_URL ||
+      "https://express-portfolio9-0a28ad87d535.herokuapp.com"
   );
 
   useEffect(() => {

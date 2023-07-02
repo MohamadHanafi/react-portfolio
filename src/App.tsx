@@ -6,14 +6,17 @@ import Contact from "./components/Contact.tsx";
 import ChatBox from "./components/ChatBox";
 import MessagesContextProvider from "./context/messagesContext.tsx";
 import SocketContextProvider from "./context/socketContext.tsx";
+import CallContextProvider from "./context/callContext.tsx";
 
 const App = () => {
   return (
     <div className="text-gray-400 bg-gray-900 body-font">
       <SocketContextProvider>
-        <MessagesContextProvider>
-          <ChatBox />
-        </MessagesContextProvider>
+        <CallContextProvider>
+          <MessagesContextProvider>
+            <ChatBox />
+          </MessagesContextProvider>
+        </CallContextProvider>
         <Navbar />
         <About />
         <Projects />

@@ -2,10 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import chatBG from "../../assets/7331541.jpg";
 import ChatInputInterface from "./ChatInputInterface";
 import ChatInterface from "./ChatInterface";
+import CallScreen from "./CallScreen";
 import { useSocket } from "../../hooks/useSocket";
 import { MessagesContext } from "../../context/messagesContext";
 import { MessageInterface, socketChatEnum } from "../../interface";
 import { SocketChannelsEnum } from "../../interface";
+import { CallContext } from "../../context/callContext";
 
 interface Props {
   messages: MessageInterface[];
@@ -18,17 +20,18 @@ const ChatComponent = ({ messages, state }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
 
   const { addListener, isConnected, removeListener } = useSocket(
-    "https://express-portfolio9-0a28ad87d535.herokuapp.com"
+    process.env.REACT_APP_SOCKET_URL ||
+      "https://express-portfolio9-0a28ad87d535.herokuapp.com"
   );
 
   const { setMessages } = useContext(MessagesContext);
+  const { callState } = useContext(CallContext);
 
   useEffect(() => {
     if (isConnected) {
       addListener({
         channelName: SocketChannelsEnum.CHAT,
         callBack: (data) => {
-          console.log(data);
           if (data?.event === socketChatEnum.NEW_MESSAGE) {
             setToastMessage((data?.payload as MessageInterface).message);
             setMessages((prev) => [
@@ -84,6 +87,7 @@ const ChatComponent = ({ messages, state }: Props) => {
 
   return (
     <div
+      id="chat-container"
       style={{
         backgroundImage: `url(${chatBG})`,
         backgroundSize: "cover",
@@ -91,8 +95,14 @@ const ChatComponent = ({ messages, state }: Props) => {
       }}
       className="h-72 w-60 rounded-md p-2 flex flex-col items-center"
     >
-      <ChatInterface messages={messages} />
-      <ChatInputInterface ref={ref} />
+      {callState ? (
+        <CallScreen />
+      ) : (
+        <>
+          <ChatInterface messages={messages} />
+          <ChatInputInterface ref={ref} />
+        </>
+      )}
     </div>
   );
 };

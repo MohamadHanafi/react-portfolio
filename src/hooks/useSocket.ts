@@ -3,19 +3,19 @@ import io from "socket.io-client";
 import { socketContext } from "../context/socketContext";
 import { SocketChannelsEnum } from "../interface/socket-channel.enum";
 
+export interface SocketData {
+  event: string;
+  payload: any;
+}
+
 export const useSocket = (url: string) => {
   const { setSocket, socket, setIsConnected, isConnected } =
     useContext(socketContext);
   const [listeners, setListeners] = useState<SocketListener[]>([]);
 
-  interface SocketData {
-    event: string;
-    payload: any;
-  }
-
   type SocketListener = {
     channelName: SocketChannelsEnum;
-    callBack: (data?: SocketData) => void;
+    callBack: (data?: SocketData) => void | Promise<void>;
   };
 
   useEffect(() => {

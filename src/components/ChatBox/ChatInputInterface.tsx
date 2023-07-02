@@ -18,6 +18,7 @@ import { MessagesContext } from "../../context/messagesContext";
 import { MessageInterface } from "../../interface";
 import { InputType } from "./type/input.type";
 import { v4 as uuid } from "uuid";
+import { CallContext } from "../../context/callContext";
 
 const ChatInputInterface = forwardRef(
   (_props, ref: ForwardedRef<HTMLInputElement>) => {
@@ -29,6 +30,8 @@ const ChatInputInterface = forwardRef(
       setAudioFile,
       sendMessage,
     } = useContext(MessagesContext);
+
+    const { initCall } = useContext(CallContext);
     const [inputType, setInputType] = useState<InputType>("text");
 
     const handleSubmit = useMemo(() => {
@@ -128,7 +131,10 @@ const ChatInputInterface = forwardRef(
         />
         <IconButton
           hidden={inputType === "voice" || !!typedMessage}
-          onClick={() => {}}
+          onClick={() => {
+            // init call
+            initCall(`${localStorage.getItem("id")!}`);
+          }}
           icon={<PhoneIcon className="w-4 h-4" />}
         />
         <IconButton

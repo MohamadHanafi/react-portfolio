@@ -2,11 +2,11 @@ import { PauseIcon, PlayIcon } from "@heroicons/react/solid";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatTime } from "../../helperes";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLInputElement> {
   audioFile: HTMLAudioElement;
   customClass?: string;
 }
-const AudioPlayer = ({ audioFile, customClass = "" }: Props) => {
+const AudioPlayer = ({ audioFile, customClass = "", ...props }: Props) => {
   const audioSliderRef = useRef<HTMLInputElement>(null);
   const fileDurationRef = useRef<HTMLSpanElement>(null);
   const [sliderValue, setSliderValue] = useState(0);
